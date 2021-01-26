@@ -29,6 +29,7 @@ public class UsrArticleController {
 	@ResponseBody
 	public Article showDetail(int id) {
 		return articles.get(id - 1);
+		//1번글 = index 0
 	}
 	
 	@RequestMapping("/usr/article/list")
@@ -37,30 +38,49 @@ public class UsrArticleController {
 		return articles;
 	}
 	
-//	@RequestMapping("/usr/article/doAdd")
-//	@ResponseBody
-//	public Map<String, Object> doAdd(String regDate, String title, String body){
-//		articles.add(new Article(++articlesLastId, regDate, title, body));
-//		
-//		Map<String, Object> rs = new HashMap<>();
-//		rs.put("resultCode", "S-1");
-//		rs.put("msg", "성공하였습니다.");
-//		rs.put("id", articlesLastId);
-//		
-//		return rs;
-//	}
-//	
-//	@RequestMapping("/usr/article/doDelete")
-//	@ResponseBody
-//	public Map<String, Object> doAdd(String regDate, String title, String body){
-//		articles.add(new Article(++articlesLastId, regDate, title, body));
-//		
-//		Map<String, Object> rs = new HashMap<>();
-//		rs.put("resultCode", "S-1");
-//		rs.put("msg", "성공하였습니다.");
-//		rs.put("id", articlesLastId);
-//		
-//		return rs;
-//	}
+	@RequestMapping("/usr/article/doAdd")
+	@ResponseBody
+	public Map<String, Object> doAdd(String regDate, String title, String body){
+		articles.add(new Article(++articlesLastId, regDate, title, body));
+		
+		Map<String, Object> rs = new HashMap<>();
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "성공하였습니다.");
+		rs.put("id", articlesLastId);
+		
+		return rs;
+	}
+	
+	@RequestMapping("/usr/article/doDelete")
+	@ResponseBody
+	public Map<String, Object> doDelete(int id){
+		boolean deleteArticleRs = deleteArticle(id);
+		articles.remove(id - 1);
+		
+		Map<String, Object> rs = new HashMap<>();
+		
+		if(deleteArticleRs) {
+			rs.put("resultCode", "S-1");
+			rs.put("msg", "성공하였습니다.");
+		} else {
+			rs.put("resultCode", "F-1");
+			rs.put("msg", "해당 게시물이 존재하지 않습니다.");
+		}
+		
+		rs.put("id", id);
+		
+		return rs;
+	}
+	
+	private boolean deleteArticle(int id) {
+		for (Article article : articles) {
+			if(article.getId() == id) {
+				articles.remove(article);
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 }
