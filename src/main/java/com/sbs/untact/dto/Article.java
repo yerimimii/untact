@@ -4,7 +4,7 @@ public class Article {
 	private String regDate;
 	private String title;
 	private String body;
-	public Article(int id, String string, String string2, String string3) {
+	public Article(int id, String regDate, String title, String body) {
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
