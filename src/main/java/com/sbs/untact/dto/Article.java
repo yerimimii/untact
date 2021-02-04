@@ -1,36 +1,54 @@
 package com.sbs.untact.dto;
 
+
 public class Article {
+	private int id;
 	private String regDate;
+	private String updateDate;
 	private String title;
 	private String body;
-	public Article(int id, String regDate, String title, String body) {
+	public Article(int id, String regDate, String updateDate, String title, String body) {
 		this.id = id;
 		this.regDate = regDate;
+		this.updateDate = updateDate;
 		this.title = title;
 		this.body = body;
 	}
 	
 	
+
 	@Override
 	public String toString() {
-		return "Article [regDate=" + regDate + ", title=" + title + ", body=" + body + ", id=" + id + "]";
+		return "Article [id=" + id + ", regDate=" + regDate + ", updateDate=" + updateDate + ", title=" + title
+				+ ", body=" + body + "]";
 	}
 
-
-	private int id;
-	public int getId() {
-		return id;
-	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getRegDate() {
 		return regDate;
 	}
+	
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
 	public String getTitle() {
 		return title;
 	}

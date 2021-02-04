@@ -22,8 +22,8 @@ public class UsrArticleController {
 		articlesLastId = 0;
 		articles = new ArrayList<>();
 
-		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목1", "내용1"));
-		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목2", "내용2"));
+		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "2020-12-12 12:12:12", "제목1", "내용1"));
+		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12","2020-12-12 12:12:12", "제목2", "내용2"));
 	}
 
 	@RequestMapping("/usr/article/detail")
@@ -43,8 +43,8 @@ public class UsrArticleController {
 	@ResponseBody
 	public Map<String, Object> doAdd(String title, String body) {
 		String regDate = Util.getNowDateStr();
-		
-		articles.add(new Article(++articlesLastId, regDate, title, body));
+		String updateDate = regDate;
+		articles.add(new Article(++articlesLastId, regDate, updateDate, title, body));
 
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("resultCode", "S-1");
@@ -105,6 +105,8 @@ public class UsrArticleController {
 			rs.put("resultCode", "F-1");
 			rs.put("msg", String.format("%d번 게시물은 존재하지 않습니다.", id));
 		}
+		
+		selArticle.setUpdateDate(Util.getNowDateStr());
 		selArticle.setTitle(title);
 		selArticle.setBody(body);
 
