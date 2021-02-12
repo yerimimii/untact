@@ -35,8 +35,19 @@ public class ArticleService {
 		return null;
 	}
 
-	public List<Article> getArticles() {
-		return articles;
+	public List<Article> getArticles(String searchKeyword) {
+		if(searchKeyword == null) {
+			return articles;
+		}
+		
+		List<Article> filtered = new ArrayList<>();
+		
+		for(Article article : articles) {
+			if(article.getTitle().contains(searchKeyword)) {
+				filtered.add(article);
+			}
+		}
+		return filtered;
 	}
 
 	public ResultData add(String title, String body) {
@@ -65,7 +76,6 @@ public class ArticleService {
 		article.setUpdateDate(Util.getNowDateStr());
 		article.setTitle(title);
 		article.setBody(body);
-		
 		return new ResultData("S-1", "게시물을 수정하였습니다.", "id", id);
 
 	}
